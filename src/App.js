@@ -7,33 +7,31 @@ import React from 'react';
 
 class App extends React.Component {
 
-  state = {
-    name: 'Huy',
-    address: 'CTU-CanTho University',
-    age: 19
-  }
+  // state = {
+  //   name: 'Huy',
+  //   address: 'CTU-CanTho University',
+  //   age: 19
+  // }
 
-  handleClick = (event) => {
-    console.log(this.state.name)
-    this.setState({
-      name: 'Yahoo!',
-      age: Math.floor(Math.random() * 100 + 1)
-    });
-  }
+  // handleClick = (event) => {
+  //   console.log(this.state.name)
+  //   this.setState({
+  //     name: 'Yahoo!',
+  //     age: Math.floor(Math.random() * 100 + 1)
+  //   });
+  // }
 
-  handleMouseOver(event) {
-    //   console.log(event.clientX)
-    //   console.log(event.clientY)
-  }
+  // handleMouseOver(event) {
+  // }
 
   render() {
     return (
       <div>
-        <div>
-          My name is {this.state.name}, {this.state.age} ys, U can call me Evan &amp; I come from {this.state.address}
-          <button onClick={this.handleClick}>Click Me!</button>
+        {/* <div>
+           My name is {this.state.name}, {this.state.age} ys, U can call me Evan &amp; I come from {this.state.address}
+         <button onClick={this.handleClick}>Click Me!</button>
           <button onMouseOver={this.handleMouseOver}>Hover Me</button>
-        </div>
+        </div> */}
         <MyComponent />
       </div>
     );
@@ -47,17 +45,17 @@ class App extends React.Component {
 //   const dispatch = useDispatch();
 
 //   return (
-// <div className="App">
-//   <header className="App-header">
-//     <img src={logo} className="App-logo" alt="logo" />
-//     <p>
-//       Hello world Yue
-//     </p>
-//     <div>Count = {count}</div>
-//     <button onClick={() => dispatch(increaseCounter())}>Increase</button>
-//     <button onClick={() => dispatch(decreaseCounter())}>Decrease</button>
-//   </header>
-// </div>
+//     <div className="App">
+//       <header className="App-header">
+//         <img src={logo} className="App-logo" alt="logo" />
+//         <p>
+//           Hello world Yue
+//         </p>
+//         <div>Count = {count}</div>
+//         <button onClick={() => dispatch(increaseCounter())}>Increase</button>
+//         <button onClick={() => dispatch(decreaseCounter())}>Decrease</button>
+//       </header>
+//     </div>
 //   );
 // }
 
