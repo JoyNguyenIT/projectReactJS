@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { increaseCounter, decreaseCounter } from './redux/action/counterAction';
 import MyComponent from './component/MyComponent';
 import React from 'react';
-
+import UserInf from './component/UserInf';
 class App extends React.Component {
 
   // state = {
@@ -33,6 +33,7 @@ class App extends React.Component {
           <button onMouseOver={this.handleMouseOver}>Hover Me</button>
         </div> */}
         <MyComponent />
+
       </div>
     );
   }
