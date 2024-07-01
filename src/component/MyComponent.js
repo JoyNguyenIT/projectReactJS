@@ -4,7 +4,13 @@ import React from 'react';
 
 
 class MyComponent extends React.Component {
-
+    state = {
+        listUsers: [
+            { id: 1, name: "Tuan", age: "19" },
+            { id: 2, name: "Huuuu", age: "20" },
+            { id: 3, name: "Akaka", age: "23" }
+        ]
+    }
 
 
     render() {
@@ -13,7 +19,7 @@ class MyComponent extends React.Component {
         return (
             <div>
                 <UserInf />
-                <DisplayInfor name={"Huu"} age={19} />
+                <DisplayInfor listUsers={this.state.listUsers} />
             </div>
         );
     }
