@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { increaseCounter, decreaseCounter } from './redux/action/counterAction';
 import MyComponent from './component/MyComponent';
 import React from 'react';
-import UserInf from './component/UserInf';
+import AddUserInfUserInf from './component/AddUserInf';
 class App extends React.Component {
 
   // state = {

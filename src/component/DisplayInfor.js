@@ -42,3 +42,5 @@ class DisplayInfor extends React.Component {
 }
 
 export default DisplayInfor
+
+
