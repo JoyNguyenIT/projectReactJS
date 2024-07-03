@@ -20,7 +20,7 @@ class DisplayInfor extends React.Component {
         return (
 
             <div className="displayInfor-container">
-                <img src={logo} />
+                {/* <img src={logo} /> */}
                 <div>
                     <span className='underline' onClick={() => { this.handleHideShow() }}>
                         {this.state.isHideUser === true ? "Hide List" : "Show List"}
@@ -35,7 +35,9 @@ class DisplayInfor extends React.Component {
                                 <div key={user.id} className={user.age > 18 ? "green" : "brown"}>
                                     <div>My name's {user.name}</div>
                                     <div>My age's {user.age}</div>
+                                    <button onClick={() => this.props.handleDeleteUser(user.id)}>Delete</button>
                                     <hr />
+
                                 </div>
                             )
                         })}
