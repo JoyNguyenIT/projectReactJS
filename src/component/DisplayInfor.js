@@ -18,6 +18,7 @@ class DisplayInfor extends React.Component {
         const { listUsers } = this.props;
 
         return (
+
             <div className="displayInfor-container">
                 <img src={logo} />
                 <div>
@@ -25,8 +26,9 @@ class DisplayInfor extends React.Component {
                         {this.state.isHideUser === true ? "Hide List" : "Show List"}
                     </span>
                 </div>
+                <div />
                 {this.state.isHideUser &&
-                    <div>
+                    <>
                         {listUsers.map((user) => {
 
                             return (
@@ -37,7 +39,7 @@ class DisplayInfor extends React.Component {
                                 </div>
                             )
                         })}
-                    </div>
+                    </>
                 }
             </div>
         )

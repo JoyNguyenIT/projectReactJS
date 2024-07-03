@@ -35,7 +35,7 @@ class AddUserInf extends React.Component {
 
     render() {
         return (
-            <div>
+            <>
                 <div>
                     My name is {this.state.name}, {this.state.age} ys, U can call me Evan &amp; I come from {this.state.address}
                     <form onSubmit={(event) => {
@@ -63,7 +63,7 @@ class AddUserInf extends React.Component {
                     </form>
 
                 </div>
-            </div>
+            </>
         );
     }
 }
