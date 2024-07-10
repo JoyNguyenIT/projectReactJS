@@ -4,6 +4,8 @@ import React from 'react';
 
 
 class MyComponent extends React.Component {
+
+
     state = {
         listUsers: [
             { id: 1, name: "Tuan", age: "15" },
@@ -11,6 +13,8 @@ class MyComponent extends React.Component {
             { id: 3, name: "Akaka", age: "23" }
         ]
     }
+
+
 
     handleAddNewUser = (userInfor) => {
         this.setState({
