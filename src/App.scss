@@ -8,9 +8,48 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+@media (min-width: 1500px) {
+
+  .container,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container-xl,
+  .container-xxl {
+    max-width: 1470px !important
+  }
+}
+
 .app-container {
   .header-container {
-    .navbar-nav {
+
+
+
+    .btn-login {
+      padding: 7px 15px;
+      border: solid 1px #535353;
+      border-radius: 5px;
+      margin-right: 15px;
+    }
+
+    .btn-signup {
+      padding: 7px 15px;
+      border: 1px solid;
+      border-radius: 5px;
+      background: #000000;
+      color: white;
+
+      &:hover {
+        background: #323131;
+      }
+
+    }
+
+    .navbar {
+      padding: 20px;
+      z-index: 10;
+      background-color: rgba(0, 0, 0, 0) !important;
+
       .nav-link {
         &.active {
           color: red;
@@ -19,4 +58,54 @@ body {
 
     }
   }
+
+  .homepage-container {
+    .homepage-content {
+      position: relative;
+      padding: 0 100px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      margin-top: 100px;
+      width: 50%;
+
+    }
+
+
+    .title-content {
+      font-weight: 600;
+      font-size: 45px;
+
+    }
+
+    .description-content {
+      font-size: 25px;
+
+    }
+
+    .btn-getstarted {
+      button {
+        border-radius: 7px;
+        height: 50px;
+        background: #000000;
+        color: white;
+        font-weight: 600;
+        margin-top: 10px;
+        padding: 15px;
+
+        &:hover {
+          background: #414040;
+        }
+      }
+    }
+  }
+}
+
+
+video {
+  position: fixed;
+  bottom: 0px;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
 }
