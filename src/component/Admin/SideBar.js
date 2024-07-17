@@ -10,6 +10,8 @@ import {
     SidebarContent,
 } from 'react-pro-sidebar';
 import sidebarBg from '../../assets/bg2.jpg';
+import { DiReact } from "react-icons/di";
+import { MdDashboard } from "react-icons/md";
 
 const SideBar = (props) => {
     const { image, collapsed, toggled, handleToggleSidebar } = props
@@ -22,7 +24,9 @@ const SideBar = (props) => {
                 breakPoint="md"
                 onToggle={handleToggleSidebar}
             >
+
                 <SidebarHeader>
+
                     <div
                         style={{
                             padding: '24px',
@@ -35,7 +39,8 @@ const SideBar = (props) => {
                             whiteSpace: 'nowrap',
                         }}
                     >
-                        Joy Nguyen
+                        <DiReact size={'3em'} color='#00bfff' />
+                        <span>Joy Nguyen</span>
                     </div>
                 </SidebarHeader>
 
@@ -43,21 +48,24 @@ const SideBar = (props) => {
                     <Menu iconShape="circle">
                         <MenuItem
                             icon={<FaTachometerAlt />}
-                            suffix={<span className="badge red">New</span>}
+
                         >
-                            dashboard
+                            Dashboard
                         </MenuItem>
-                        <MenuItem icon={<FaGem />}> components</MenuItem>
+
                     </Menu>
                     <Menu iconShape="circle">
+
                         <SubMenu
-                            suffix={<span className="badge yellow">3</span>}
-                            icon={<FaRegLaughWink />}
+                            // suffix={<span className="badge yellow"></span>}
+                            icon={<FaGem />}
+                            title={'Features'}
                         >
-                            <MenuItem> 1</MenuItem>
-                            <MenuItem> 2</MenuItem>
-                            <MenuItem> 3</MenuItem>
+                            <MenuItem> Quản lý Users</MenuItem>
+                            <MenuItem> Quản lý bài Quiz</MenuItem>
+                            <MenuItem> Quản lý câu hỏi</MenuItem>
                         </SubMenu>
+
 
 
                     </Menu>
@@ -78,7 +86,7 @@ const SideBar = (props) => {
                         >
                             <FaGithub />
                             <span style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                                viewSource
+                                Joy Nguyen
                             </span>
                         </a>
                     </div>
