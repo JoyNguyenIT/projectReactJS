@@ -1,5 +1,16 @@
 .manage-user-contaniner {
-    .user-content {}
+    padding: 10px;
+
+    .user-content {
+        .btn-add-new {
+            margin: 15px 0;
+        }
+    }
+
+    .title {
+        font-weight: 600;
+        font-size: 20px;
+    }
 }
 
 .modal-add-user {
