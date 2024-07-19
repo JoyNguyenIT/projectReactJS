@@ -3,11 +3,20 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FcPlus } from "react-icons/fc";
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+
 
 const ModalCreateUser = (props) => {
     const { show, setShow } = props;
 
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+        setShow(false)
+        setEmail("")
+        setPassword("")
+        setUsername("")
+        setRole("")
+        setPreviewImage("")
+    }
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -25,9 +34,26 @@ const ModalCreateUser = (props) => {
         }
     }
 
-    const handleSubmitAddUser = async () => {
-        const data = new FormData();
+    const validateEmail = (email) => {
+        return String(email)
+            .toLowerCase()
+            .match(
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            );
+    }
 
+    const handleSubmitAddUser = async () => {
+        if (!validateEmail(email)) {
+            toast.error("Invalid email!")
+            return;
+        }
+
+        if (!password) {
+            toast.error("Invalid password")
+            return;
+        }
+
+        const data = new FormData();
         data.append('email', email);
         data.append('password', password);
         data.append('username', username);
@@ -35,7 +61,16 @@ const ModalCreateUser = (props) => {
         data.append('userImage', image);
 
         const res = await axios.post('http://localhost:8081/api/v1/participant', data);
-        console.log("check res: ", res)
+        console.log("check res ", res)
+
+        if (res.data && res.data.EC === 0) {
+            toast.success("Create new user succeed!")
+            handleClose()
+        }
+
+        if (res.data && res.data.EC !== 0) {
+            toast.error(res.data.EM)
+        }
     }
 
     return (
@@ -113,11 +148,25 @@ const ModalCreateUser = (props) => {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={() => handleSubmitAddUser()}>
+                    <Button variant="primary" onClick={() => handleSubmitAddUser()
+                    }>
                         Save Changes
                     </Button>
                 </Modal.Footer>
             </Modal >
+            <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+            />
+
         </>
     );
 }
