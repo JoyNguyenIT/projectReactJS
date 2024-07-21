@@ -1,13 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FcPlus } from "react-icons/fc";
 import { ToastContainer, toast } from 'react-toastify';
 import { postCreateNewUser } from '../../../services/apiService';
+import _ from 'lodash';
 
 
-const ModalCreateUser = (props) => {
-    const { show, setShow } = props;
+const ModalUpdateUser = (props) => {
+    const { show, setShow, dataUpdate } = props;
 
     const handleClose = () => {
         setShow(false)
@@ -15,6 +16,7 @@ const ModalCreateUser = (props) => {
         setPassword("")
         setUsername("")
         setRole("")
+        setImage("")
         setPreviewImage("")
     }
 
@@ -24,6 +26,17 @@ const ModalCreateUser = (props) => {
     const [role, setRole] = useState("User")
     const [image, setImage] = useState("")
     const [previewImage, setPreviewImage] = useState("")
+
+    useEffect(() => {
+        if (!_.isEmpty(dataUpdate)) {
+            setEmail(dataUpdate.email)
+            setUsername(dataUpdate.username)
+            setRole(dataUpdate.role)
+            if (dataUpdate.image) {
+                setPreviewImage(`data:image/jpeg;base64,${dataUpdate.image}`)
+            }
+        }
+    }, [dataUpdate])
 
     const handleUploadImage = (event) => {
         if (event.target && event.target.files && event.target.files[0]) {
@@ -82,7 +95,7 @@ const ModalCreateUser = (props) => {
                 className='modal-add-user'
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Add new user</Modal.Title>
+                    <Modal.Title>Update User</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row g-3">
@@ -91,28 +104,30 @@ const ModalCreateUser = (props) => {
                             <input
                                 type="email"
                                 className="form-control"
-                                value={email}
+                                value={dataUpdate.email}
+                                disabled
                                 onChange={(event) => setEmail(event.target.value)} />
                         </div>
                         <div className="col-md-6">
                             <label className="form-label">Password</label>
                             <input type="password"
                                 className="form-control"
-                                value={password}
+                                value={dataUpdate.password}
+                                disabled
                                 onChange={(event) => setPassword(event.target.value)} />
                         </div>
                         <div className="col-md-6">
                             <label className="form-label">Username</label>
                             <input type="text"
                                 className="form-control"
-                                value={username}
+                                value={dataUpdate.username}
                                 onChange={(event) => setUsername(event.target.value)} />
                         </div>
                         <div className="col-md-4">
                             <label className="form-label">Role</label>
                             <select
                                 className="form-select"
-                                value={role}
+                                value={dataUpdate.role}
                                 onChange={(event) => setRole(event.target.value)}>
                                 <option value="USER">USER</option>
                                 <option value="ADMIN">ADMIN</option>
@@ -130,7 +145,7 @@ const ModalCreateUser = (props) => {
                         </div>
                         <div className='col-md-12 img-preview'>
                             {previewImage ?
-                                <img src={previewImage} alt='logo' />
+                                <img src={previewImage} />
                                 :
                                 < span >Preview Image</span>
                             }
@@ -166,4 +181,4 @@ const ModalCreateUser = (props) => {
     );
 }
 
-export default ModalCreateUser
+export default ModalUpdateUser
