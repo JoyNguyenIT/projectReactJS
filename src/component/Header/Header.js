@@ -10,8 +10,6 @@ const Header = () => {
     const isAuthenticated = useSelector(state => state.user.isAuthenticated)
     const account = useSelector(state => state.user.account.username)
 
-    console.log("checkkk", isAuthenticated, account)
-
     const handleClickLoginBtn = () => {
         navigate('/login')
     }

@@ -4,11 +4,15 @@ import { useNavigate } from "react-router-dom"
 import { postLogin } from "../../services/apiService"
 import { toast } from "react-toastify"
 import { useDispatch } from "react-redux"
+import { dataLogin } from "../../redux/action/userAction"
+import { ImSpinner9 } from "react-icons/im";
 
 
 const Login = (props) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [isLoading, setIsLoading] = useState(false)
+
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
@@ -29,18 +33,20 @@ const Login = (props) => {
             toast.error("Invalid password")
             return;
         }
+
+        setIsLoading(true)
         let res = await postLogin(email, password)
         if (res && res.EC === 0) {
             toast.success(res.EM)
+            setIsLoading(false)
+            dispatch(dataLogin(res))
             navigate('/')
-            dispatch({
-                type: "FETCH_USER_LOGIN_SUCCESS",
-                payload: res
-            })
+
         }
 
         if (res && res.EC !== 0) {
             toast.error(res.EM)
+            setIsLoading(false)
         }
     }
     const handleClickSignupBtn = () => {
@@ -86,8 +92,12 @@ const Login = (props) => {
                         <button
                             className="btn-login-submit"
                             onClick={() => handleClickLoginBtn()}
+                            disabled={isLoading}
                         >
-                            Login</button>
+                            {isLoading && <ImSpinner9 className="loader-icon" />}
+                            <span>Login</span>
+                        </button>
+
                     </div>
                 </div>
                 <div className="go-homepage col-4 mx-auto">

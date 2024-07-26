@@ -80,6 +80,27 @@
                 background-color: black;
                 height: 40px;
                 border-radius: 5px;
+
+                &:disabled {
+                    cursor: not-allowed;
+                    background-color: #919090;
+                }
+            }
+
+            .loader-icon {
+                margin-right: 7px;
+                top: 2px;
+                animation: spin 1s infinite linear
+            }
+
+            @keyframes spin {
+                from {
+                    transform: scale(1) rotate(0deg);
+                }
+
+                to {
+                    transform: scale(1) rotate(360deg);
+                }
             }
         }
 
