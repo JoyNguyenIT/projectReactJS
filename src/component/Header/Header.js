@@ -9,7 +9,6 @@ import { NavDropdown, NavItem } from 'react-bootstrap';
 const Header = () => {
     const isAuthenticated = useSelector(state => state.user.isAuthenticated)
     const account = useSelector(state => state.user.account.username)
-
     const handleClickLoginBtn = () => {
         navigate('/login')
     }
@@ -22,7 +21,7 @@ const Header = () => {
         <Navbar expand="lg" className="bg-body-tertiary" data-bs-theme="dark">
             <Container>
                 <NavLink to={'/'} className='navbar-brand'>
-                    Joy Nguyen
+                    <span className='brand'> Joy Nguyen </span>
                 </NavLink>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
