@@ -1,11 +1,15 @@
-import { useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { useParams, useLocation } from "react-router-dom"
 import { getDetailQuestionId } from "../../services/apiService"
 import _, { chain, values } from "lodash"
+import Question from "./Question"
 
 const DetailQuiz = (props) => {
     const params = useParams()
     const quizId = params.id
+    const location = useLocation()
+    const [currentQues, setCurrentQues] = useState([])
+    const [quesIndex, setQuesIndex] = useState(0)
 
     useEffect(() => {
         fetchDetailQuestion()
@@ -13,9 +17,6 @@ const DetailQuiz = (props) => {
 
     const fetchDetailQuestion = async () => {
         let res = await getDetailQuestionId(quizId)
-        console.log("check res: ", res)
-
-
         let data = _.chain(res.DT)
             // Group the elements of Array based on `color` property
             .groupBy("id")
@@ -27,24 +28,54 @@ const DetailQuiz = (props) => {
                     if (index === 0) {
                         questionDescription = item.description
                         image = item.image
-                    }
 
+                    }
                     answers.push(item.answers)
-                    console.log("check item answer: ", item, " index: ", index)
-                }
-                )
-                console.log("Check value: ", detail, "check key: ", questionId)
-                return { id: questionId, detail, questionDescription, image }
+                })
+                return { id: questionId, detail, questionDescription, image, answers }
             })
             .value()
         console.log("check data: ", data)
+        setCurrentQues(data)
     }
 
 
 
     return (
         <div className="detail-quiz-container">
-            Detail Quiz
+            <div className="left-content">
+                <div className="title-quiz">
+                    Quiz {quizId}:{location?.state?.quizTitle}
+                    <hr />
+                </div>
+
+                <div className="content-quiz">
+                    {currentQues.length > 0 && (
+                        <Question
+                            currentQues={currentQues && currentQues.length > 0
+                                ? currentQues[quesIndex]
+                                : []}
+                            quesIndex={quesIndex}
+                        />
+                    )}
+                </div>
+
+                <div className="footer-quiz">
+                    <button className="btn btn-primary"
+                        disabled={quesIndex === 0}
+                        onClick={() => setQuesIndex(quesIndex - 1)}
+                    >Back</button>
+                    <button className="btn btn-success"
+                        disabled={quesIndex >= currentQues.length - 1}
+                        onClick={() => setQuesIndex(quesIndex + 1)}
+                    >Next </button>
+                </div>
+
+            </div>
+
+            <div className="right-content">
+                <div className="time-countdown">800000</div>
+            </div>
         </div>
     )
 }
