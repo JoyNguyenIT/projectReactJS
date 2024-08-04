@@ -1,12 +1,13 @@
 const Question = (props) => {
     const { currentQues, quesIndex } = props
 
+
     return (
         <>
             <div className="body-quiz">
                 {currentQues.image
                     ? <img src={`data:image/png;base64, ${currentQues.image}`} />
-                    : null
+                    : <div></div>
                 }
             </div>
             <div className="question">
@@ -18,7 +19,10 @@ const Question = (props) => {
                         <div className="a-child" key={`a-${index + 1}`}>
                             <div className="form-check">
                                 <input className="form-check-input"
-                                    type="checkbox" value="" />
+                                    type="checkbox"
+                                    checked={answer.isSelected}
+                                    onChange={() => props.handleCheckAnswer(answer.id, currentQues.id)}
+                                />
                                 <label className="form-check-label" >
                                     {answer.description}
                                 </label>

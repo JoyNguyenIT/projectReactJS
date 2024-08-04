@@ -15,6 +15,7 @@ const DetailQuiz = (props) => {
         fetchDetailQuestion()
     }, [quizId])
 
+
     const fetchDetailQuestion = async () => {
         let res = await getDetailQuestionId(quizId)
         let data = _.chain(res.DT)
@@ -30,7 +31,9 @@ const DetailQuiz = (props) => {
                         image = item.image
 
                     }
-                    answers.push(item.answers)
+                    item.answers.isSelected = false
+                    answers.push(item.answers);
+
                 })
                 return { id: questionId, detail, questionDescription, image, answers }
             })
@@ -39,7 +42,27 @@ const DetailQuiz = (props) => {
         setCurrentQues(data)
     }
 
+    const handleCheckAnswer = (aId, qId) => {
+        let currentQuesClone = _.cloneDeep(currentQues)
+        let question = currentQuesClone.find(item => item.id === qId)
+        if (question && question.answers) {
+            let answerSelected = question.answers.map(item => {
+                if (+item.id === +aId) {
+                    item.isSelected = !item.isSelected
+                }
+                return item
+            })
+            question.answers = answerSelected
+        }
+        let index = currentQuesClone.findIndex(item => item.id === qId)
+        console.log(">>>>>>>>>>check index: ", index)
+        if (index > -1) {
+            currentQuesClone[index] = question
+            setCurrentQues([...currentQuesClone])
+        }
 
+        console.log(">>>>cehck : ", currentQuesClone)
+    }
 
     return (
         <div className="detail-quiz-container">
@@ -52,6 +75,7 @@ const DetailQuiz = (props) => {
                 <div className="content-quiz">
                     {currentQues.length > 0 && (
                         <Question
+                            handleCheckAnswer={handleCheckAnswer}
                             currentQues={currentQues && currentQues.length > 0
                                 ? currentQues[quesIndex]
                                 : []}
@@ -69,6 +93,9 @@ const DetailQuiz = (props) => {
                         disabled={quesIndex >= currentQues.length - 1}
                         onClick={() => setQuesIndex(quesIndex + 1)}
                     >Next </button>
+                    <button className="btn btn-warning"
+                        onClick={() => setQuesIndex(quesIndex + 1)}
+                    >Finish </button>
                 </div>
 
             </div>
