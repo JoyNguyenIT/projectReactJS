@@ -1,0 +1,40 @@
+.manage-quiz-container {
+    padding: 10px;
+
+    .title {
+        font-size: 25px;
+        font-weight: 600;
+    }
+
+    legend {
+        font-size: 13px;
+    }
+
+    .add-new-quiz {
+        .label-upload {
+            background-color: #eeee76;
+            padding: 3px 7px;
+            border-radius: 5px;
+            width: fit-content;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #e2e29c
+            }
+        }
+
+        .img-preview {
+            display: flex;
+            color: #ccc;
+            justify-content: center;
+            border: dashed 1px #ccc;
+            height: 150px;
+            align-items: center;
+
+            img {
+                max-width: 100%;
+                max-height: 100%;
+            }
+        }
+    }
+}

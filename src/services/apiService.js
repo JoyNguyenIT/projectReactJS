@@ -51,8 +51,12 @@ const getDetailQuestionId = (id) => {
 
 }
 
+const postFinishQuiz = (data) => {
+    return axios.post('api/v1/quiz-submit', { ...data });
+}
+
 export {
     postCreateNewUser, getAllTableUsers, putUpdateUser, deleteUser,
     getUserPaginate, postLogin, postRegister, getQuizByUser,
-    getDetailQuestionId
+    getDetailQuestionId, postFinishQuiz
 }

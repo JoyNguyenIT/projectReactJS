@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
 import { useParams, useLocation } from "react-router-dom"
-import { getDetailQuestionId } from "../../services/apiService"
+import { getDetailQuestionId, postFinishQuiz } from "../../services/apiService"
 import _, { chain, values } from "lodash"
 import Question from "./Question"
+import ModalResultQuiz from "./ModalResultQuiz"
 
 const DetailQuiz = (props) => {
     const params = useParams()
@@ -10,6 +11,10 @@ const DetailQuiz = (props) => {
     const location = useLocation()
     const [currentQues, setCurrentQues] = useState([])
     const [quesIndex, setQuesIndex] = useState(0)
+    const [showAnswer, setShowAnswer] = useState(false)
+    const [dataResult, setDataResult] = useState({})
+
+
 
     useEffect(() => {
         fetchDetailQuestion()
@@ -38,7 +43,6 @@ const DetailQuiz = (props) => {
                 return { id: questionId, detail, questionDescription, image, answers }
             })
             .value()
-        console.log("check data: ", data)
         setCurrentQues(data)
     }
 
@@ -55,13 +59,65 @@ const DetailQuiz = (props) => {
             question.answers = answerSelected
         }
         let index = currentQuesClone.findIndex(item => item.id === qId)
-        console.log(">>>>>>>>>>check index: ", index)
         if (index > -1) {
             currentQuesClone[index] = question
             setCurrentQues([...currentQuesClone])
         }
 
-        console.log(">>>>cehck : ", currentQuesClone)
+    }
+
+    const handleFinishQuiz = async () => {
+        // {
+        //     "quizId": 1,
+        //         "answers": [
+        //             {
+        //                 "questionId": 1,
+        //                 "userAnswerId": [3]
+        //             },
+        //             {
+        //                 "questionId": 2,
+        //                 "userAnswerId": [6]
+        //             }
+        //         ]
+        // }
+        let dataFinish = {
+            quizId: quizId,
+            answers: []
+        }
+
+        if (currentQues && currentQues.length > 0) {
+            let answer = []
+            currentQues.forEach(ques => {
+                let questionId = +ques.id
+                let userAnswerId = []
+
+                ques.answers.forEach(a => {
+                    if (a.isSelected === true) {
+                        userAnswerId.push(a.id)
+                    }
+                })
+
+                answer.push({
+                    questionId: +questionId,
+                    userAnswerId: userAnswerId
+                })
+            })
+            dataFinish.answers = answer
+        }
+        let res = await postFinishQuiz(dataFinish)
+        if (res && res.EC === 0) {
+            setDataResult({
+                countCorrect: res.DT.countCorrect,
+                countTotal: res.DT.countTotal,
+                quizData: res.DT.quizData
+            })
+            setShowAnswer(true)
+        }
+        else {
+            alert("something wrong....!")
+        }
+
+
     }
 
     return (
@@ -94,7 +150,7 @@ const DetailQuiz = (props) => {
                         onClick={() => setQuesIndex(quesIndex + 1)}
                     >Next </button>
                     <button className="btn btn-warning"
-                        onClick={() => setQuesIndex(quesIndex + 1)}
+                        onClick={() => handleFinishQuiz()}
                     >Finish </button>
                 </div>
 
@@ -103,6 +159,11 @@ const DetailQuiz = (props) => {
             <div className="right-content">
                 <div className="time-countdown">800000</div>
             </div>
+            <ModalResultQuiz
+                show={showAnswer}
+                setShow={setShowAnswer}
+                dataResult={dataResult}
+            />
         </div>
     )
 }
