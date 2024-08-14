@@ -14,7 +14,10 @@ const ModalUpdateQuiz = (props) => {
     const [quizId, setQuizId] = useState('')
     const [quizName, setQuizName] = useState('')
     const [quizDescription, setQuizDescription] = useState('')
-    const [quizDifficulty, setQuizDifficulty] = useState([])
+    const [quizDifficulty, setQuizDifficulty] = useState({
+        value: '',
+        label: ''
+    })
     const [quizImage, setQuizImage] = useState(null)
     const [previewImage, setPreviewImage] = useState(null)
 
@@ -23,7 +26,7 @@ const ModalUpdateQuiz = (props) => {
         setQuizId('')
         setQuizName('')
         setQuizDescription('')
-        setQuizDifficulty([])
+        setQuizDifficulty({})
         setQuizImage(null)
         setPreviewImage(null)
         props.resetQuizUpdate()
@@ -36,13 +39,14 @@ const ModalUpdateQuiz = (props) => {
             setQuizId(dataQuizEdit.id)
             setQuizName(dataQuizEdit.name)
             setQuizDescription(dataQuizEdit.description)
-            setQuizDifficulty(dataQuizEdit.difficulty)
+            setQuizDifficulty({ value: dataQuizEdit.difficulty, label: dataQuizEdit.difficulty })
             setQuizImage(dataQuizEdit.image)
             const base64Image = `data:image/png;base64,${dataQuizEdit.image}`
             setPreviewImage(base64Image)
         }
 
     }, [dataQuizEdit])
+
 
     const handleUploadEditImage = (event) => {
         if (event.target && event.target.files && event.target.files[0]) {
@@ -101,7 +105,6 @@ const ModalUpdateQuiz = (props) => {
                         </div>
                         <div className="col-md-6">
                             <Select
-                                defaultValue={quizDifficulty}
                                 value={quizDifficulty}
                                 onChange={setQuizDifficulty}
                                 options={options}
