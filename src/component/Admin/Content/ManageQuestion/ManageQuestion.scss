@@ -19,20 +19,21 @@
                 width: 50%;
             }
 
-            .items-upload {
+            .items-group {
                 display: flex;
                 margin-top: 15px;
+                gap: 10px;
 
                 .input-upload {
+                    display: flex;
+                    gap: 10px;
 
-
-                    .label-text {
+                    .icon-upload {
+                        font-size: 30px;
+                        position: relative;
+                        bottom: 13px;
                         cursor: pointer;
-                        border: 1px solid red;
-                        height: fit-content;
-                        border-radius: 5px;
-                        padding: 0px 10px;
-                        margin-right: 10px;
+                        color: rgb(27 91 183);
                     }
                 }
 
@@ -42,6 +43,25 @@
                     .add-icon {
                         font-size: 20px;
                         cursor: pointer;
+                    }
+                }
+
+                .add-question-btn {
+                    margin-left: 30px;
+                    position: relative;
+                    bottom: 14px;
+
+                    .icon-add-question {
+                        color: #7998f0;
+                        font-size: 30px;
+                        cursor: pointer;
+                    }
+
+                    .icon-remove-question {
+                        color: #ff8e3d;
+                        font-size: 30px;
+                        cursor: pointer;
+                        margin-left: 10px;
                     }
                 }
             }
