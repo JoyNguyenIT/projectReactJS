@@ -9,32 +9,32 @@ import { v4 as uuidv4 } from 'uuid';
 import Lightbox from "react-awesome-lightbox";
 import _ from "lodash";
 import { getAllQuizForAdmin, postAddNewQuestion, postAddNewAnswer } from "../../../../services/apiService";
+import { toast } from "react-toastify";
 
 
 const ManageQuestion = (props) => {
+    const initQuestion = [
+        {
+            id: uuidv4(),
+            description: '',
+            imageName: '',
+            imageFile: '',
+            answers: [
+                {
+                    id: uuidv4(),
+                    description: '',
+                    isCorrect: false
+                }
+            ]
+
+
+        }
+    ]
     const [listQuiz, setListQuiz] = useState([])
     const [selectQuiz, setSelectQuiz] = useState(null)
     const [showPreviewImage, setShowPreviewImage] = useState(false)
 
-    const [questions, setQuestions] = useState(
-        [
-            {
-                id: uuidv4(),
-                description: '',
-                imageName: '',
-                imageFile: '',
-                answers: [
-                    {
-                        id: uuidv4(),
-                        description: '',
-                        isCorrect: false
-                    }
-                ]
-
-
-            }
-        ]
-    )
+    const [questions, setQuestions] = useState(initQuestion)
 
     const [dataPreviewImage, setDataPreviewImage] = useState({
         url: '',
@@ -149,24 +149,50 @@ const ManageQuestion = (props) => {
     }
 
     const handleSaveQuestion = async () => {
+        if (!selectQuiz) {
+            toast.error("Please choose a Quiz!");
+            return;  // Early exit if no quiz is selected
+        }
+
         if (selectQuiz && selectQuiz.value) {
+            let isValid = true;
+
+            // Validation loop
+            for (let [indexQ, ques] of questions.entries()) {
+                if (!ques.description) {
+                    toast.error(`Question ${indexQ + 1} is empty!`);
+                    isValid = false;
+                    break;  // Exit early if a question description is empty
+                }
+
+                for (let [indexA, ans] of ques.answers.entries()) {
+                    if (!ans.description) {
+                        toast.error(`Answer ${indexA + 1} in Question ${indexQ + 1} is empty!`);
+                        isValid = false;
+                        break;  // Exit early if an answer description is empty
+                    }
+                }
+
+                if (!isValid) break;  // Exit outer loop if an inner validation failed
+            }
+
+            if (!isValid) return;  // Stop execution if validation failed
+
+            // If validation passes, save questions and answers
             for (let ques of questions) {
-                if (ques && ques.description) {
-                    let resQues = await postAddNewQuestion(selectQuiz.value, ques.description, ques.imageFile)
+                let resQues = await postAddNewQuestion(selectQuiz.value, ques.description, ques.imageFile);
 
-                    if (resQues && resQues.EC === 0 && resQues.DT) {
-                        for (let ans of ques.answers) {
-                            if (ans && ans.description) {
-                                let resAns = await postAddNewAnswer(ans.description, ans.isCorrect, resQues.DT.id)
-                                console.log(resAns)
-                            }
-
-                        }
+                if (resQues && resQues.EC === 0 && resQues.DT) {
+                    for (let ans of ques.answers) {
+                        await postAddNewAnswer(ans.description, ans.isCorrect, resQues.DT.id);
                     }
                 }
             }
+
+            toast.success("Created new questions & answers successfully!");
+            setQuestions(initQuestion);  // Reset to initial state after successful save
         }
-    }
+    };
 
     const handleShowPreviewImage = (quesId) => {
         let questionClone = _.cloneDeep(questions)
