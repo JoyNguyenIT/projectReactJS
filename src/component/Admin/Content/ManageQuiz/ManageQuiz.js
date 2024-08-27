@@ -9,6 +9,8 @@ import { Accordion } from "react-bootstrap";
 import ModalUpdateQuiz from "./ModalUpdateQuiz";
 import { getAllQuizForAdmin } from "../../../../services/apiService";
 import ModalDeleteQuiz from "./ModalDeleteQuiz";
+import QuizQA from "./QuizQA";
+import AssignQuiz from "./AssignQuiz";
 
 
 const ManageQuiz = (props) => {
@@ -29,6 +31,7 @@ const ManageQuiz = (props) => {
     const [dataQuizEdit, setDataQuizEdit] = useState({})
     const [showModalDelete, setShowModalDelete] = useState(false)
     const [dataQuizDelete, setDataQuizDelete] = useState({})
+    const [selectQuiz, setSelectQuiz] = useState(null)
 
 
     useEffect(() => {
@@ -150,20 +153,41 @@ const ManageQuiz = (props) => {
                                         onClick={handleAddQuizSubmit}
                                     >Save</button>
                                 </div>
+                                <div className="table-list-quiz">
+                                    <TableQuiz
+                                        listQuiz={listQuiz}
+                                        setListQuiz={setListQuiz}
+                                        handleBtnEditQuiz={handleBtnEditQuiz}
+                                        handleBtnDeletetQuiz={handleBtnDeletetQuiz}
+                                    />
+                                </div>
                             </fieldset>
                         </form>
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>
 
-            <div className="table-list-quiz">
-                <TableQuiz
-                    listQuiz={listQuiz}
-                    setListQuiz={setListQuiz}
-                    handleBtnEditQuiz={handleBtnEditQuiz}
-                    handleBtnDeletetQuiz={handleBtnDeletetQuiz}
-                />
-            </div>
+            <Accordion defaultActiveKey="1">
+                <Accordion.Item eventKey="1">
+                    <Accordion.Header>Update Q/A Quizzes</Accordion.Header>
+                    <Accordion.Body>
+                        <QuizQA />
+                    </Accordion.Body>
+                </Accordion.Item>
+            </Accordion>
+
+            <Accordion defaultActiveKey="2">
+                <Accordion.Item eventKey="2">
+                    <Accordion.Header>Assign Users</Accordion.Header>
+                    <Accordion.Body>
+
+                        <AssignQuiz />
+
+                    </Accordion.Body>
+                </Accordion.Item>
+            </Accordion>
+
+
             <ModalUpdateQuiz
                 show={showModalEdit}
                 setShow={setShowModalEdit}

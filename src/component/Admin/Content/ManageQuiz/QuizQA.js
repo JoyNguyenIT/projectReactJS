@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "./ManageQuestion.scss"
+import "./QuizQA.scss"
 import Select from "react-select"
 import { RiImageAddFill } from "react-icons/ri";
 import { IoIosAddCircle } from "react-icons/io";
@@ -12,7 +12,7 @@ import { getAllQuizForAdmin, postAddNewQuestion, postAddNewAnswer } from "../../
 import { toast } from "react-toastify";
 
 
-const ManageQuestion = (props) => {
+const QuizQA = (props) => {
     const initQuestion = [
         {
             id: uuidv4(),
@@ -344,4 +344,4 @@ const ManageQuestion = (props) => {
     )
 }
 
-export default ManageQuestion
+export default QuizQA

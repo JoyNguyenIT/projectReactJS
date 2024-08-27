@@ -1,0 +1,101 @@
+.question-container {
+    margin: 15px;
+
+    .title {
+        font-size: 23px;
+        font-weight: 600;
+    }
+
+    .select-ques {
+        width: 50%;
+    }
+
+    .question-content {
+        .add-question-content {
+            display: flex;
+            gap: 20px;
+
+            .description {
+                width: 50%;
+            }
+
+            .items-group {
+                display: flex;
+                margin-top: 15px;
+                gap: 10px;
+
+                .input-upload {
+                    display: flex;
+                    gap: 10px;
+
+                    .icon-upload {
+                        font-size: 30px;
+                        position: relative;
+                        bottom: 13px;
+                        cursor: pointer;
+                        color: rgb(27 91 183);
+                    }
+                }
+
+                .click-upload {
+                    margin-left: 10px;
+
+                    .add-icon {
+                        font-size: 20px;
+                        cursor: pointer;
+                    }
+                }
+
+                .add-question-btn {
+                    margin-left: 30px;
+                    position: relative;
+                    bottom: 14px;
+
+                    .icon-add-question {
+                        color: #7998f0;
+                        font-size: 30px;
+                        cursor: pointer;
+                    }
+
+                    .icon-remove-question {
+                        color: #ff8e3d;
+                        font-size: 30px;
+                        cursor: pointer;
+                        margin-left: 10px;
+                    }
+                }
+            }
+
+        }
+    }
+
+    .answers-content {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+
+        .isCorrect {
+            font-size: 25px;
+        }
+
+        .form-answers {
+            width: 50%;
+        }
+
+        .group-answer {
+            .icon-add-answer {
+                color: green;
+                font-size: 30px;
+                cursor: pointer;
+            }
+
+            .icon-remove-answer {
+                color: red;
+                font-size: 30px;
+                cursor: pointer;
+                margin-left: 10px;
+            }
+        }
+    }
+
+}
