@@ -7,8 +7,8 @@ import { AiFillMinusCircle } from "react-icons/ai";
 import { BsPatchMinusFill, BsPatchPlusFill } from "react-icons/bs";
 import { v4 as uuidv4 } from 'uuid';
 import Lightbox from "react-awesome-lightbox";
-import _ from "lodash";
-import { getAllQuizForAdmin, postAddNewQuestion, postAddNewAnswer } from "../../../../services/apiService";
+import _, { cloneDeep } from "lodash";
+import { getAllQuizForAdmin, postAddNewQuestion, postAddNewAnswer, getQuizWithQA, postUpsertQuiz } from "../../../../services/apiService";
 import { toast } from "react-toastify";
 
 
@@ -44,6 +44,38 @@ const QuizQA = (props) => {
     useEffect(() => {
         fetchListQuiz()
     }, [])
+
+    useEffect(() => {
+        if (selectQuiz && selectQuiz.value) {
+            fetchQuizWithQA()
+        }
+    }, [selectQuiz])
+
+    function urltoFile(url, filename, mimeType) {
+        return fetch(url)
+            .then(res => res.arrayBuffer())
+            .then(buf => new File([buf], filename, { type: mimeType }));
+    }
+
+
+
+    const fetchQuizWithQA = async () => {
+        let res = await getQuizWithQA(selectQuiz.value)
+        if (res && res.EC === 0) {
+            let questionClone = res.DT.qa;
+            for (let i = 0; i < questionClone.length; i++) {
+                let ques = questionClone[i]
+                if (ques.imageFile) {
+                    ques.imageFile =
+                        await urltoFile(`data:image/png;base64,${ques.imageFile}`, `Question - ${ques.id}.png`, "image/png")
+                    ques.imageName = `Question-${ques.id}.png`
+                    questionClone[i] = ques
+                }
+            }
+            setQuestions(questionClone)
+        }
+
+    }
 
     const fetchListQuiz = async () => {
         let res = await getAllQuizForAdmin();
@@ -148,6 +180,17 @@ const QuizQA = (props) => {
         }
     }
 
+    async function getBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader()
+            reader.readAsDataURL(file)
+            reader.onload = () => {
+                resolve(reader.result)
+            }
+            reader.onerror = reject
+        })
+    }
+
     const handleSaveQuestion = async () => {
         if (!selectQuiz) {
             toast.error("Please choose a Quiz!");
@@ -179,20 +222,44 @@ const QuizQA = (props) => {
             if (!isValid) return;  // Stop execution if validation failed
 
             // If validation passes, save questions and answers
-            for (let ques of questions) {
-                let resQues = await postAddNewQuestion(selectQuiz.value, ques.description, ques.imageFile);
+            // for (let ques of questions) {
+            //     let resQues = await postAddNewQuestion(selectQuiz.value, ques.description, ques.imageFile);
 
-                if (resQues && resQues.EC === 0 && resQues.DT) {
-                    for (let ans of ques.answers) {
-                        await postAddNewAnswer(ans.description, ans.isCorrect, resQues.DT.id);
-                    }
+            //     if (resQues && resQues.EC === 0 && resQues.DT) {
+            //         for (let ans of ques.answers) {
+            //             await postAddNewAnswer(ans.description, ans.isCorrect, resQues.DT.id);
+            //         }
+            //     }
+            // }
+            let questionClone = _.cloneDeep(questions)
+            for (let i = 0; i < questionClone.length; i++) {
+                if (questionClone[i].imageFile) {
+                    let res = await getBase64(questionClone[i].imageFile)
+                    questionClone[i].imageFile = res
                 }
-            }
 
-            toast.success("Created new questions & answers successfully!");
-            setQuestions(initQuestion);  // Reset to initial state after successful save
+            }
+            let res = await postUpsertQuiz({
+                quizId: selectQuiz.value,
+                questions: questionClone
+            })
+            console.log(res)
+            // if (res && res.EC === 0) {
+            //     toast.success(res.EM);
+            //     setSelectQuiz('')
+            //     setQuestions(initQuestion);  // Reset to initial state after successful save
+            // }
+            // else {
+            //     toast.error(res.EM)
+            // }
         }
-    };
+
+
+
+    }
+
+
+
 
     const handleShowPreviewImage = (quesId) => {
         let questionClone = _.cloneDeep(questions)

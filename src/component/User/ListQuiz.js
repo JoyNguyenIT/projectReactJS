@@ -3,6 +3,8 @@ import { getQuizByUser } from "../../services/apiService"
 import "./ListQuiz.scss"
 import { useNavigate } from "react-router-dom"
 import "./DetailQuiz.scss"
+import { Outlet } from "react-router-dom"
+import PerfectScrollbar from 'react-perfect-scrollbar'
 
 
 const ListQuiz = (props) => {
@@ -45,6 +47,8 @@ const ListQuiz = (props) => {
                     You don't have any Quiz now...
                 </div>
             }
+
+
 
         </div>
     )

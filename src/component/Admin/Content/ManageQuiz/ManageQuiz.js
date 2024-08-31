@@ -13,6 +13,7 @@ import QuizQA from "./QuizQA";
 import AssignQuiz from "./AssignQuiz";
 
 
+
 const ManageQuiz = (props) => {
 
     const options = [
@@ -202,6 +203,8 @@ const ManageQuiz = (props) => {
                 dataQuizDelete={dataQuizDelete}
                 fetchListQuiz={fetchListQuiz}
             />
+
+
         </div>
     )
 }

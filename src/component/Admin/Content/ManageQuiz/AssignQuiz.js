@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import Select from "react-select"
-import { getAllQuizForAdmin, getAllTableUsers } from "../../../../services/apiService";
+import { getAllQuizForAdmin, getAllTableUsers, postAssignQuiz } from "../../../../services/apiService";
+import { toast } from "react-toastify";
+
 
 
 const AssignQuiz = () => {
@@ -19,7 +21,7 @@ const AssignQuiz = () => {
         if (res && res.EC === 0) {
             let listQuizClone = res.DT.map((ques) => ({
                 value: `${ques.id}`,
-                label: `${ques.id}-${ques.description}`
+                label: `${ques.id}-${ques.name}`
             }))
             setListQuiz(listQuizClone)
         }
@@ -28,7 +30,6 @@ const AssignQuiz = () => {
 
     const fetchListUser = async () => {
         let res = await getAllTableUsers()
-        console.log(res)
         if (res && res.EC === 0) {
             let listUserClone = res.DT.map((user) => ({
                 value: `${user.id}`,
@@ -37,6 +38,19 @@ const AssignQuiz = () => {
             setListUser(listUserClone)
         }
 
+    }
+
+    const handleAssign = async () => {
+        let res = await postAssignQuiz(selectQuiz.value, selectUser.value)
+        if (res && res.EC === 0) {
+            toast.success(res.EM)
+            setSelectQuiz({})
+            setSelectUser({})
+        }
+
+        else {
+            toast.error(res.EM)
+        }
     }
 
     return (
@@ -51,13 +65,20 @@ const AssignQuiz = () => {
 
             </div>
             <div className="col-6 form-group">
-                <label className="mb-2">Select Quiz:</label>
+                <label className="mb-2">Select User:</label>
                 <Select
                     value={selectUser}
                     onChange={setSelectUser}
                     options={listUser}
                 />
 
+            </div>
+            <div className="mt-3">
+                <button className="btn btn-warning"
+                    onClick={() => handleAssign()}
+                >
+                    Assign
+                </button>
             </div>
         </div>
     )
