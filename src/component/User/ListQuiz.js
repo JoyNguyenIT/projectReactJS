@@ -47,9 +47,6 @@ const ListQuiz = (props) => {
                     You don't have any Quiz now...
                 </div>
             }
-
-
-
         </div>
     )
 }

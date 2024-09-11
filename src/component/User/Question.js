@@ -1,12 +1,17 @@
+import { useState } from "react";
+import Lightbox from "react-awesome-lightbox";
 const Question = (props) => {
     const { currentQues, quesIndex } = props
+    const [showPreviewImage, setShowPreviewImage] = useState(false)
 
 
     return (
         <>
             <div className="body-quiz">
                 {currentQues.image
-                    ? <img src={`data:image/png;base64, ${currentQues.image}`} />
+                    ? <img src={`data:image/png;base64, ${currentQues.image}`}
+                        onClick={() => setShowPreviewImage(true)}
+                    />
                     : <div></div>
                 }
             </div>
@@ -31,6 +36,14 @@ const Question = (props) => {
                     )
                 })}
             </div>
+            {
+                showPreviewImage &&
+                (<Lightbox image={`data:image/png;base64, ${currentQues.image}`}
+                    title={'Question image'}
+                    onClose={() => setShowPreviewImage(false)}
+                />
+                )
+            }
 
         </>
     )

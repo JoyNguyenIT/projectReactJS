@@ -17,6 +17,7 @@ import ListQuiz from "./component/User/ListQuiz";
 import DetailQuiz from "./component/User/DetailQuiz";
 import ManageQuiz from "./component/Admin/Content/ManageQuiz/ManageQuiz";
 import ManageQuestion from "./component/Admin/Content/ManageQuestion/ManageQuestion";
+import PrivateRoute from "./routes/PrivateRoute";
 
 
 const Layout = (props) => {
@@ -34,9 +35,14 @@ const Layout = (props) => {
             <Routes>
                 <Route path="/" element={<App />}>
                     <Route index element={<Homepage />} />
-                    <Route path="/users" element={<ListQuiz />} >
-                        {/* <Route index element={<ListQuiz />} /> */}
-                    </Route>
+
+                    <Route path="/users" element={
+                        <PrivateRoute>
+                            <ListQuiz />
+                        </PrivateRoute>
+                    } />
+
+                    {/* <Route index element={<ListQuiz />} /> */}
                 </Route>
                 <Route path="/quiz/:id" element={<DetailQuiz />} />
                 <Route path="/admins" element={<Admin />} >

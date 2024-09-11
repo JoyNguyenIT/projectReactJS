@@ -4,6 +4,7 @@ import { getDetailQuestionId, postFinishQuiz } from "../../services/apiService"
 import _, { chain, values } from "lodash"
 import Question from "./Question"
 import ModalResultQuiz from "./ModalResultQuiz"
+import RightContent from "./Content/RightContent"
 
 const DetailQuiz = (props) => {
     const params = useParams()
@@ -13,8 +14,6 @@ const DetailQuiz = (props) => {
     const [quesIndex, setQuesIndex] = useState(0)
     const [showAnswer, setShowAnswer] = useState(false)
     const [dataResult, setDataResult] = useState({})
-
-
 
     useEffect(() => {
         fetchDetailQuestion()
@@ -116,8 +115,6 @@ const DetailQuiz = (props) => {
         else {
             alert("something wrong....!")
         }
-
-
     }
 
     return (
@@ -157,7 +154,11 @@ const DetailQuiz = (props) => {
             </div>
 
             <div className="right-content">
-                <div className="time-countdown">800000</div>
+                <RightContent
+                    dataQuiz={currentQues}
+                    handleFinishQuiz={handleFinishQuiz}
+                    setQuesIndex={setQuesIndex}
+                />
             </div>
             <ModalResultQuiz
                 show={showAnswer}
