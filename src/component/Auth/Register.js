@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { postRegister } from "../../services/apiService"
 import { toast } from "react-toastify"
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
+import Languages from "../Header/Languages"
 
 
 const Register = (props) => {
@@ -52,6 +53,7 @@ const Register = (props) => {
             <div className="header">
                 <span>Already have an account?</span>
                 <button onClick={() => handleClickLoginBtn()}>Log in</button>
+                <Languages />
             </div>
             <div className="title col-4 mx-auto">
                 Joy Nguyen

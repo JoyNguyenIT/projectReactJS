@@ -2,13 +2,18 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { NavLink, useNavigate } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavDropdown, NavItem } from 'react-bootstrap';
+import { postLogOut } from '../../services/apiService';
+import { dataLogout } from '../../redux/action/userAction';
+import { toast } from 'react-toastify';
+import Languages from './Languages';
 
 
 const Header = () => {
     const isAuthenticated = useSelector(state => state.user.isAuthenticated)
-    const account = useSelector(state => state.user.account.username)
+    const account = useSelector(state => state.user.account)
+    const dispatch = useDispatch()
     const handleClickLoginBtn = () => {
         navigate('/login')
     }
@@ -16,6 +21,17 @@ const Header = () => {
         navigate('/register')
     }
     const navigate = useNavigate()
+
+    const handleLogOut = async () => {
+        let res = await postLogOut("account.email", account.refresh_token)
+        if (res && res.EC === 0) {
+            dispatch(dataLogout())
+            navigate('/login')
+        }
+        else {
+            toast.error(res.EM)
+        }
+    }
 
     return (
         <Navbar expand="lg" className="bg-body-tertiary" data-bs-theme="dark">
@@ -40,13 +56,13 @@ const Header = () => {
                         </div>
                         :
                         <NavDropdown title="Setting" id="basic-nav-dropdown">
-                            <NavDropdown.Item >Log out</NavDropdown.Item>
                             <NavDropdown.Item >Profile</NavDropdown.Item>
-
+                            <NavDropdown.Item
+                                onClick={() => handleLogOut()}
+                            >Log out</NavDropdown.Item>
                         </NavDropdown>
                     }
-
-
+                    <Languages />
                     <Nav>
 
                     </Nav>

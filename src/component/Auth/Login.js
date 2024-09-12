@@ -6,6 +6,7 @@ import { toast } from "react-toastify"
 import { useDispatch } from "react-redux"
 import { dataLogin } from "../../redux/action/userAction"
 import { ImSpinner9 } from "react-icons/im";
+import Languages from "../Header/Languages"
 
 
 const Login = (props) => {
@@ -53,11 +54,18 @@ const Login = (props) => {
         navigate('/register')
     }
 
+    const handleOnKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            handleClickLoginBtn();
+        }
+    }
+
     return (
         <div className="login-content ">
             <div className="header">
                 <span>Don't have an account yet?</span>
                 <button onClick={() => handleClickSignupBtn()}>Sign up</button>
+                <Languages />
             </div>
             <div className="title col-4 mx-auto">
                 Joy Nguyen
@@ -83,12 +91,13 @@ const Login = (props) => {
                             placeholder="At least 8 characters"
                             value={password}
                             onChange={(event) => setPassword(event.target.value)}
+                            onKeyDown={handleOnKeyPress}
                         ></input>
                     </div>
                 </div>
                 <div className="item-content col-4 mx-auto">
                     <span className="forgot-password">Forgot password?</span>
-                    <div>
+                    <div >
                         <button
                             className="btn-login-submit"
                             onClick={() => handleClickLoginBtn()}

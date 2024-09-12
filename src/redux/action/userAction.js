@@ -9,3 +9,14 @@ export const dataLogin = (data) => {
     )
 
 }
+
+export const USER_LOGOUT_SUCCESS = "USER_LOGOUT_SUCCESS"
+
+export const dataLogout = () => {
+    return (
+        {
+            type: USER_LOGOUT_SUCCESS,
+        }
+    )
+
+}

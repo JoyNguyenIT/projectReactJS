@@ -21,6 +21,14 @@ body {
   }
 }
 
+.languages {
+  margin-left: 15px;
+
+  .dropdown-toggle::after {
+    display: none;
+  }
+}
+
 .app-container {
   .header-container {
     margin: 20px 40px;
