@@ -18,6 +18,7 @@ import DetailQuiz from "./component/User/DetailQuiz";
 import ManageQuiz from "./component/Admin/Content/ManageQuiz/ManageQuiz";
 import ManageQuestion from "./component/Admin/Content/ManageQuestion/ManageQuestion";
 import PrivateRoute from "./routes/PrivateRoute";
+import { Suspense } from "react";
 
 
 const Layout = (props) => {
@@ -30,7 +31,7 @@ const Layout = (props) => {
     }
 
     return (
-        <>
+        <Suspense fallback={<div>Loading...</div>}>
 
             <Routes>
                 <Route path="/" element={<App />}>
@@ -69,7 +70,7 @@ const Layout = (props) => {
                 pauseOnHover
                 theme="colored"
             />
-        </>
+        </Suspense>
     )
 }
 
