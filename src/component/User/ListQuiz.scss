@@ -2,4 +2,14 @@
     display: flex;
     gap: 50px;
     flex-wrap: wrap;
+
+    .card-quiz {
+        text-align: center;
+        height: 500px;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+
+
 }

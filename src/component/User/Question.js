@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { IoCloseOutline, IoCheckmark } from "react-icons/io5";
 import Lightbox from "react-awesome-lightbox";
 const Question = (props) => {
-    const { currentQues, quesIndex } = props
+    const { currentQues, quesIndex, dataResult } = props
     const [showPreviewImage, setShowPreviewImage] = useState(false)
 
 
@@ -31,6 +32,15 @@ const Question = (props) => {
                                 <label className="form-check-label" >
                                     {answer.description}
                                 </label>
+                                <>
+                                    {answer.isSelected === true && answer.isCorrect === false &&
+                                        < IoCloseOutline className="incorrect-icon" />
+                                    }
+                                    {answer.isCorrect === true &&
+
+                                        < IoCheckmark className="correct-icon" />
+                                    }
+                                </>
                             </div>
                         </div>
                     )

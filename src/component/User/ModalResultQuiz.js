@@ -4,10 +4,15 @@ import Modal from 'react-bootstrap/Modal';
 
 
 function ModalResultQuiz(props) {
-    const { show, setShow, dataResult } = props;
+    const { show, setShow, dataResult, setIsShowAnswer } = props;
+
+
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const handleShowAnswer = () => {
+        setIsShowAnswer(true)
+    }
 
 
 
@@ -26,7 +31,7 @@ function ModalResultQuiz(props) {
                     <div>Total Correct:{dataResult.countCorrect}</div>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
+                    <Button variant="secondary" onClick={handleShowAnswer}>
                         Show Answer
                     </Button>
                     <Button variant="primary" onClick={handleClose}>

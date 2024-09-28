@@ -4,5 +4,15 @@
         "description": "You must change to make everyone happy",
         "button1": "Doing Quiz now",
         "button2": "Get's started for free"
+    },
+    "header": {
+        "homepage": "Home",
+        "user": "User",
+        "admin": "Admin",
+        "setting": "Setting",
+        "login": "Login",
+        "signup": "Sign up",
+        "profile": "Profile",
+        "logout": "Log out"
     }
 }

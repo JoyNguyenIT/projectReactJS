@@ -37,126 +37,148 @@ body {
     .navbar-brand {
       font-size: 25px;
 
-      .brand {
+      .logo {
+        bottom: 5px;
         position: relative;
-        bottom: 3px;
+
+        s .icon-logo {
+          animation: spin 5s infinite linear;
+
+          @keyframes spin {
+            from {
+              transform: scale(1) rotate(0deg);
+            }
+
+            to {
+              transform: scale(1) rotate(360deg);
+            }
+          }
+        }
       }
     }
 
 
-    .btn-login {
-      padding: 7px 15px;
-      border: solid 1px #535353;
-      border-radius: 5px;
-      margin-right: 15px;
+
+    .brand {
+      position: relative;
+      bottom: 3px;
+    }
+  }
+
+
+  .btn-login {
+    padding: 7px 15px;
+    border: solid 1px #535353;
+    border-radius: 5px;
+    margin-right: 15px;
+  }
+
+  .btn-signup {
+    padding: 7px 15px;
+    border: 1px solid;
+    border-radius: 5px;
+    background: #000000;
+    color: white;
+
+    &:hover {
+      background: #323131;
     }
 
-    .btn-signup {
-      padding: 7px 15px;
-      border: 1px solid;
-      border-radius: 5px;
+  }
+
+  .navbar {
+    padding: 20px;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0) !important;
+    margin: 22px;
+
+    .nav-link {
+      font-size: 17px;
+
+      &.active {
+        color: red;
+      }
+    }
+
+  }
+}
+
+.app-content {
+  height: calc(100vh - 200px);
+}
+
+.homepage-container {
+  .homepage-content {
+    position: relative;
+    padding: 0 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 100px;
+    width: 50%;
+
+  }
+
+
+  .title-content {
+    font-weight: 600;
+    font-size: 45px;
+
+  }
+
+  .description-content {
+    font-size: 25px;
+
+  }
+
+  .btn-getstarted {
+    button {
+      border-radius: 7px;
+      height: 50px;
       background: #000000;
       color: white;
+      font-weight: 600;
+      margin-top: 10px;
+      padding: 15px;
+      border: none;
 
       &:hover {
-        background: #323131;
+        background: #414040;
       }
-
-    }
-
-    .navbar {
-      padding: 20px;
-      z-index: 10;
-      background-color: rgba(0, 0, 0, 0) !important;
-      margin: 22px;
-
-      .nav-link {
-        font-size: 17px;
-
-        &.active {
-          color: red;
-        }
-      }
-
     }
   }
 
-  .app-content {
-    height: calc(100vh - 200px);
-  }
+  .sidebar-btn-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-  .homepage-container {
-    .homepage-content {
-      position: relative;
-      padding: 0 100px;
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-      margin-top: 100px;
-      width: 50%;
-
-    }
-
-
-    .title-content {
-      font-weight: 600;
-      font-size: 45px;
-
-    }
-
-    .description-content {
-      font-size: 25px;
-
-    }
-
-    .btn-getstarted {
-      button {
-        border-radius: 7px;
-        height: 50px;
-        background: #000000;
-        color: white;
-        font-weight: 600;
-        margin-top: 10px;
-        padding: 15px;
-        border: none;
-
-        &:hover {
-          background: #414040;
-        }
-      }
-    }
-
-    .sidebar-btn-wrapper {
+    .sidebar-btn {
+      transition: width 0.3s;
+      width: 150px;
+      padding: 1px 15px;
+      border-radius: 40px;
+      background: rgba(255, 255, 255, 0.05);
+      color: #adadad;
+      text-decoration: none;
+      margin: 0 auto;
+      height: 35px;
       display: flex;
       align-items: center;
       justify-content: center;
+      text-overflow: ellipsis;
+      overflow: hidden;
 
-      .sidebar-btn {
-        transition: width 0.3s;
-        width: 150px;
-        padding: 1px 15px;
-        border-radius: 40px;
-        background: rgba(255, 255, 255, 0.05);
-        color: #adadad;
-        text-decoration: none;
-        margin: 0 auto;
-        height: 35px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-overflow: ellipsis;
-        overflow: hidden;
-
-        span {
-          margin-left: 5px;
-          font-size: 13px;
-        }
-
-        &:hover {}
+      span {
+        margin-left: 5px;
+        font-size: 13px;
       }
+
+      &:hover {}
     }
   }
 }
+
 
 
 video {

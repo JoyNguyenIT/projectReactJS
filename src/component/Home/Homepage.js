@@ -3,6 +3,7 @@ import videoHomePage from '../../assets/video-homepage.mp4';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
+
 const Homepage = (props) => {
     const isAuthenticated = useSelector(state => state.user.isAuthenticated)
     const navigate = useNavigate()

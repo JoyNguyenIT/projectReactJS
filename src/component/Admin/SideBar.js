@@ -38,11 +38,20 @@ const SideBar = (props) => {
                             letterSpacing: '1px',
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
-                            whiteSpace: 'nowrap',
+                            whiteSpace: 'nowrap'
                         }}
+
                     >
-                        <DiReact size={'3em'} color='#00bfff' />
-                        <span onClick={() => navigate("/")}>Joy Nguyen</span>
+                        <DiReact size={'3em'} color='#00bfff' onClick={() => navigate("/")}
+                            style={{
+                                cursor: 'pointer'
+                            }}
+                        />
+                        <span onClick={() => navigate("/")}
+                            style={{
+                                cursor: 'pointer'
+                            }}
+                        >Joy Nguyen</span>
                     </div>
                 </SidebarHeader>
 
@@ -99,7 +108,7 @@ const SideBar = (props) => {
                     </div>
                 </SidebarFooter>
             </ProSidebar>
-        </div>
+        </div >
     )
 }
 
